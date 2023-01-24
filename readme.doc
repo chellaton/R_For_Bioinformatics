@@ -1,0 +1,8 @@
+Mycobacterium leprae fasta file is downloaded from the ncbi url below:
+https://www.ncbi.nlm.nih.gov/nuccore/AL583920.1?report=fasta
+
+Dengue virus fasta file downloaded from here:
+https://www.ncbi.nlm.nih.gov/nuccore/NC_001474.2?report=fasta
+
+Libraries used here are seqinr:
+https://seqinr.r-forge.r-project.org
