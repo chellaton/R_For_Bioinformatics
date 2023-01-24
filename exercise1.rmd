@@ -1,0 +1,75 @@
+---
+title: "Exercise-1"
+author: "Ramesh Chellaton"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+Load libraries here
+```{r}
+eval = TRUE
+message = FALSE
+warning = FALSE
+echo = FALSE
+invisible(library(seqinr))
+invisible(library(dplyr))
+invisible(library(Biostrings))
+```
+Data load: Read 2 files - dengue.fasta and leprae.fasta (Mycobacterium leprae)
+```{r}
+leprae <- read.fasta('leprae.fasta')
+dengue <- read.fasta('dengue.fasta')
+```
+#### Setup: convert fasta list files into sequence files that Biostrings and seqinr can use
+```{r}
+leprae_seq <- leprae[[1]]
+dengue_seq <- dengue[[1]]
+```
+#### Q1. Last 20 nucleotdies of dengue genome
+```{r}
+start <- length(dengue_seq)-20
+end <- length(dengue_seq)
+print(dengue_seq[start:end])
+```
+#### Q2. Length in nucleotides of Mycobacterium leprae 
+```{r}
+print(paste('Length of Mycobacterium leprae in nucleotides:',
+            length(leprae_seq)))
+```
+#### Q3. Number of 'A','C','G','T' bases in Mycobacterium leprae:
+```{r}
+print(seqinr::count(leprae_seq,1))
+```
+#### Q4. GC Content of Mycobacterium leprae:
+```{r}
+GC(leprae_seq)
+```
+#### Q5. Number of 'a','c','g','t' bases in Mycobacterium leprae **complement**:
+```{r}
+seqinr::count(comp(leprae_seq),1)
+```
+#### Q6. Number of 'CC','CG','GC' DNA words in Mycobaterium leprae:
+```{r}
+dimer_tbl <- seqinr::count(leprae_seq, 2) 
+dimer_tbl[c('cc','gc','cg')]
+```
+#### Q7. Number of 'cc','cg','gc' in the first 1000 and last 1000 of leprae seq:
+Q7.1: from 1:1000 positions:
+```{r}
+start <- 1
+end <- 1000
+dimer_tbl <- seqinr::count(leprae_seq[start:end], 2)
+dimer_tbl[c('cc','cg','gc')]
+```
+Q7.2 from 348450-1000: 348450
+```{r last 1000 positions}
+end <- length(leprae_seq)
+start <- end - 1000
+dimer_tbl <- seqinr::count(leprae_seq[start:end], 2)
+dimer_tbl[c('cc','cg','gc')]
+```
