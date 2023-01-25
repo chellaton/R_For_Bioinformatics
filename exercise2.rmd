@@ -33,7 +33,14 @@ GC_window_plot <- function(size, sequence) {
 GC_window_plot(200, dengue_seq)
 ```
 
-#### Q2: AT function - similar to GC in seqinr, except for 'A' and 'T'
+#### Q2: GC plot for Mycobacterium with 20000 step
+```{r leprae plot}
+leprae <- read.fasta('leprae.fasta')
+leprae_seq <- leprae[[1]]
+GC_window_plot(20000, leprae_seq)
+```
+
+#### Q3: AT function - similar to GC in seqinr, except for 'A' and 'T'
 ```{r AT function}
 AT <- function(seq) {
   monomer_tbl <- seqinr::count(seq, 1)
@@ -42,7 +49,7 @@ AT <- function(seq) {
 }
 print (AT(dengue_seq))
 ```
-#### Q3: sliding window plot for AT
+#### Q4: sliding window plot for AT
 ```{r generic function for a window slide 2-monomer fraction}
 generic_window_plot <- function(fun, size, nseq, title='') {
   x_values <- seq(1, length(nseq), by=size)
@@ -59,3 +66,5 @@ generic_window_plot(GC, 200, dengue_seq, 'GC Plot for dengue, step=200')
 GC_window_plot(200, dengue_seq)
 generic_window_plot(AT, 200, dengue_seq, title='AT Plot for dengue, step=200')
 ```
+
+#### Q5: 
