@@ -67,4 +67,13 @@ GC_window_plot(200, dengue_seq)
 generic_window_plot(AT, 200, dengue_seq, title='AT Plot for dengue, step=200')
 ```
 
-#### Q5: 
+#### Q5: over/under-representation of 3-nucleotide GAC GC?
+using rho function that computes: f~xy~ / (f~x~ * f~y~) to get over-representation
+```{r 3-nucleotide over/under-rep}
+monomers <- seqinr::count(leprae_seq, 1)
+dimers <- seqinr::count(leprae_seq, 2)
+trimer <- seqinr::count(leprae_seq, wordsize=3)
+rho_trimer <- rho(leprae_seq, wordsize = 3)
+rho_trimer
+print(paste('rho value for gac:', round(rho_trimer['gac'],7)))
+```
