@@ -1,0 +1,35 @@
+---
+title: "Exercise 2 from R-for-Bioinformatics"
+author: "Ramesh Chellaton"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+#### Load libraries
+```{r library & file load}
+library(seqinr)
+library(dplyr)
+
+dengue <- read.fasta('dengue.fasta')
+dengue_seq <- dengue[[1]]
+```
+#### Q1: draw a sliding window plot of GC content
+```{r sliding window plot of size 200 nucleotides}
+s_window_plot <- function(size, sequence) {
+  x_values <- seq(1, length(sequence), by=size)
+#  print(x_values)
+  y_values <- c()
+  for (i in 1:length(x_values)) {
+    GC_tmp <- GC(dengue_seq[i:(i+size)])
+    y_values <- c(y_values, GC_tmp)
+  }
+#   print(y_values)
+  plot(x=x_values, y=y_values, type="b", col='steelblue2')
+}
+s_window_plot(200, dengue_seq)
+```
