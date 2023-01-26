@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r library & file load}
 library(seqinr)
 library(dplyr)
+library(stringr)
 
 dengue <- read.fasta('dengue.fasta')
 dengue_seq <- dengue[[1]]
@@ -68,12 +69,38 @@ generic_window_plot(AT, 200, dengue_seq, title='AT Plot for dengue, step=200')
 ```
 
 #### Q5: over/under-representation of 3-nucleotide GAC GC?
-using rho function that computes: f~xy~ / (f~x~ * f~y~) to get over-representation
+Use rho function that computes: f~xy~ / (f~x~ * f~y~) to get over-representation.
+this generally works for dimers
 ```{r 3-nucleotide over/under-rep}
+
+myrho <- function(sequence='', astr=''){
+  if (is.null(sequence) | is.null(astr))
+  {
+    print("invalid input")
+    return (0)
+  }
+  srch_tbl <- seqinr::count(sequence, wordsize = str_length(astr))
+  monomer_tbl <- seqinr::count(sequence, wordsize = 1)
+  srch_mono <- str_split(tolower(astr), '')
+  srch_mono <- srch_mono[[1]]
+  
+  denom <- 1
+  for (i in 1:length(srch_mono)) {
+    denom <- denom * monomer_tbl[srch_mono[i]]/length(sequence)
+  }
+  numer <- srch_tbl[tolower(astr)]/length(sequence)
+  return(numer/denom)
+}
+
 monomers <- seqinr::count(leprae_seq, 1)
 dimers <- seqinr::count(leprae_seq, 2)
 trimer <- seqinr::count(leprae_seq, wordsize=3)
 rho_trimer <- rho(leprae_seq, wordsize = 3)
 rho_trimer
-print(paste('rho value for gac:', round(rho_trimer['gac'],7)))
+print(paste('rho value for gac:', round(rho_trimer['gac'],8)))
+
+print('using my rho function:')
+res <- myrho(leprae_seq, 'gac')
+print(res)
 ```
+#### End of Exercise-2
