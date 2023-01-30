@@ -87,7 +87,7 @@ myrho <- function(sequence='', astr=''){
 ```
 Use rho function that computes: f~xy~ / (f~x~ * f~y~) to get over-representation.
 For trimers, the rho compute is: f~xyz~/(f~x~.f~y~.f~z~)
-```{r Try the function}
+```{r Try the function - commit again}
 monomers <- seqinr::count(leprae_seq, 1)
 dimers <- seqinr::count(leprae_seq, 2)
 trimer <- seqinr::count(leprae_seq, wordsize=3)
