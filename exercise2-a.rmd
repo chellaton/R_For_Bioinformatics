@@ -1,0 +1,29 @@
+---
+title: "exercise2a-dna-plot"
+author: "R Chellaton"
+date: "2023-02-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### R Markdown
+```{r libraries & data setup}
+library(tidyverse)
+library(ggplot2)
+
+set <- c('a','t','g','c')
+set1 <- sample(set, size=2000, replace=TRUE)
+set2 <- sample(set, size=2000, replace=TRUE)
+index <- seq(1, length(set1))
+dataset <- tibble(position = index, 
+                  species1 = set1,
+                  species2 = set2)
+longset <- pivot_longer(dataset, -position, names_to = 'Species', values_to = 'base')
+```
+#### initialize ggplot
+```{r}
+g <- ggplot(longset, mapping = aes(position, base, col=Species)) + geom_count()
+```
