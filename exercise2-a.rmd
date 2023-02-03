@@ -25,5 +25,6 @@ longset <- pivot_longer(dataset, -position, names_to = 'Species', values_to = 'b
 ```
 #### initialize ggplot
 ```{r}
-g <- ggplot(longset, mapping = aes(position, base, col=Species)) + geom_count()
+g <- ggplot(longset, mapping = aes(position, base, col=Species)) + geom_count(size=.7)
+print(g)
 ```
