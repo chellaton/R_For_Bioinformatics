@@ -35,3 +35,26 @@ print(paste('Total number of base pairs:',
 print('Number of a,g,c,t bases:')
 print(seqinr::count(b_malayi, wordsize=1))
 ```
+##### Probability that B.malayi according to multinomial model in which probabilities of As, Cs, Ts, and Gs are set
+##### equal to s.mansoni
+```{r use multinomial}
+multi <- function(n = NULL, probabilities = NULL)
+{
+  letters <- c('A','C','G','T')
+  p <- probabilities  
+  alist <- sample(letters, n, replace=TRUE, prob = p)
+  return(alist)
+}
+# Usage
+print(multi(20, c(0.28, 0.21, 0.22, 0.29)))
+```
+##### Using dotPlot to compare dna sequences - this is memory intensive
+```{r dotPlot compare leprae and ulceran sequences}
+ulceran <- read.fasta('ulceran_enolase.fasta')
+leprae <- read.fasta('leprae_antiporter.fasta')
+ulceran_seq <- ulceran[[1]]
+leprae_seq <- leprae[[1]]
+dotPlot(ulceran_seq, leprae_seq[1:(length(ulceran_seq))], 
+        xlab = 'Ulceran Enolase', ylab = 'Leprae Antiporter', 
+        main = 'Comparison using dotPlot of leprae and ulceran sequences')
+```
