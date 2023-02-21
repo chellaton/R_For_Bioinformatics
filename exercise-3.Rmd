@@ -1,0 +1,37 @@
+---
+title: "exercise-3"
+author: "R Chellaton"
+date: "2023-02-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+#### load libraries and initial file
+```{r libraries & file access, echo=FALSE}
+library(seqinr)
+library(tidyverse)
+library(stringr)
+s_mansoni <- read.fasta('s_mansoni.fasta')
+s_mansoni <- s_mansoni[[1]]
+b_malayi <- read.fasta('brugia_malayi_mitochondria.fasta')
+b_malayi <- b_malayi[[1]]
+```
+##### for schistosoma mansoni dna (NC_002545)
+```{r examine, echo=FALSE}
+print(paste('Total number of base pairs:',
+            length(s_mansoni)))
+print('Number of a,g,c,t bases:')
+print(seqinr::count(s_mansoni, wordsize=1))
+```
+##### for brugia malayi mitochondria genome sequence (NC_004298)
+```{r Q2: brugia malayi mitochondria, echo=FALSE}
+print(paste('Total number of base pairs:',
+            length(b_malayi)))
+print('Number of a,g,c,t bases:')
+print(seqinr::count(b_malayi, wordsize=1))
+```
